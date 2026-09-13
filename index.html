@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:radial-gradient(circle at 50% 40%, #12182b 0%, #070a12 70%);
+    color:#fff;
+    font-family:'Segoe UI',Arial,sans-serif;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .wrap {
+    text-align:center;
+  }
+  .ring-wrap {
+    position:relative;
+    width:96px;
+    height:96px;
+    margin:0 auto 24px;
+  }
+  .ring {
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,0.08);
+  }
+  .ring-progress {
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background: conic-gradient(#5eead4 0deg, #818cf8 0deg, transparent 0deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    animation: sweep 1s linear forwards;
+  }
+  @keyframes sweep {
+    to { background: conic-gradient(#5eead4 0deg, #818cf8 360deg, transparent 360deg); }
+  }
+  .core {
+    position:absolute;
+    inset:16px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#5eead4,#818cf8);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:22px;
+    color:#070a12;
+    box-shadow:0 0 24px rgba(94,234,212,0.35), 0 0 48px rgba(129,140,248,0.2);
+    animation: breathe 1s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100% { transform:scale(1); }
+    50% { transform:scale(1.06); }
+  }
+  .label {
+    font-size:13px;
+    color:#6b7280;
+    letter-spacing:0.4px;
+  }
+  .label span {
+    color:#e5e7eb;
+    font-weight:600;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="ring-wrap">
+      <div class="ring"></div>
+      <div class="ring-progress"></div>
+      <div class="core">A</div>
+    </div>
+    <div class="label">Opening in <span id="count">1.0</span>s</div>
+  </div>
+
+<script>
+  var target = "https://arisefeistyleery.com/qaakt48zb?key=e909b40d43142400b19ee754974d1ecc";
+  var el = document.getElementById('count');
+  var t = 1.0;
+  var interval = setInterval(function() {
+    t -= 0.1;
+    if (t <= 0) { t = 0; clearInterval(interval); }
+    el.textContent = t.toFixed(1);
+  }, 100);
+
+  setTimeout(function() {
+    window.location.replace(target);
+  }, 1000);
+</script>
+</body>
+</html>
